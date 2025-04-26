@@ -1,15 +1,58 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.io.*;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        try {
+            // Load network from the input file
+            FlowNetwork network = loadFromFile("C:\\Amiru\\Bsc (hons) computer science\\GitHUB\\Network-Flow-MaxFlow-Java\\w2082097\\input\\bridge_5.txt");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+            System.out.println("Flow Network Loaded:");
+            network.printNetwork();
+
+            int source = 0;
+            int sink = network.size() - 1;
+
+            // Initialize the max flow solver
+            MaxFlowSolver solver = new MaxFlowSolver(network, source, sink);
+
+            // Measure start time
+            long startTime = System.nanoTime();
+
+            // Compute maximum flow
+            int result = solver.getMaxFlow();
+            
+            // Measure end time
+            long endTime = System.nanoTime();
+
+            System.out.println("\nFinal Flows:");
+            network.printNetwork();
+
+            System.out.println("\nMaximum Flow from " + source + " to " + sink + ": " + result);
+            System.out.printf("Execution Time: %.2f ms\n", (endTime - startTime) / 1e6); // Print time in milliseconds
+
+        } catch (IOException e) {
+            System.out.println("Failed to read input file: " + e.getMessage());
         }
+    }
+
+    // Parser method to read a flow network from a file
+    public static FlowNetwork loadFromFile(String path) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(path));
+
+        int n = Integer.parseInt(br.readLine().trim());
+        FlowNetwork net = new FlowNetwork(n);
+
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] parts = line.trim().split("\\s+");
+            if (parts.length == 3) {
+                int from = Integer.parseInt(parts[0]);
+                int to = Integer.parseInt(parts[1]);
+                int cap = Integer.parseInt(parts[2]);
+                net.addEdge(from, to, cap);
+            }
+        }
+        br.close();
+        return net;
     }
 }
