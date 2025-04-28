@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             // Load network from the input file
-            FlowNetwork network = loadFromFile("C:\\Amiru\\Bsc (hons) computer science\\GitHUB\\Network-Flow-MaxFlow-Java\\w2082097\\input\\bridge_5.txt");
+            FlowNetwork network = loadFromFile("C:\\Amiru\\Bsc (hons) computer science\\GitHUB\\Network-Flow-MaxFlow-Java\\w2082097\\input\\ladder_1.txt");
 
             System.out.println("Flow Network Loaded:");
             network.printNetwork();
@@ -28,6 +28,7 @@ public class Main {
             network.printNetwork();
 
             System.out.println("\nMaximum Flow from " + source + " to " + sink + ": " + result);
+
             System.out.printf("Execution Time: %.2f ms\n", (endTime - startTime) / 1e6); // Print time in milliseconds
 
         } catch (IOException e) {
