@@ -1,10 +1,12 @@
+//W2082097  20230358 H.A.G.Kalana Anupama
+
 import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
         try {
             // Load network from the input file
-            FlowNetwork network = loadFromFile("C:\\Amiru\\Bsc (hons) computer science\\GitHUB\\Network-Flow-MaxFlow-Java\\w2082097\\input\\ladder_1.txt");
+            FlowNetwork network = loadFromFile("C:\\Amiru\\Bsc (hons) computer science\\GitHUB\\Network-Flow-MaxFlow-Java\\w2082097\\input\\ladder_8.txt");
 
             System.out.println("Flow Network Loaded:");
             network.printNetwork();
